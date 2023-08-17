@@ -56,21 +56,27 @@ const AllocationForm = (props) => {
                   </div>
                   <select className="custom-select" id="inputGroupSelect02" onChange={(event) => setAction(event.target.value)}>
                         <option defaultValue value="Add" name="Add">Add</option>
-                <option value="Reduce" name="Reduce">Reduce</option>
+                        <option value="Reduce" name="Reduce">Reduce</option>
                   </select>
-
-                    <input
-                        required='required'
-                        type='number'
-                        id='cost'
-                        value={cost}
-                        style={{ marginLeft: '2rem' , size: 10}}
-                        onChange={(event) => setCost(event.target.value)}>
-                        </input>
-
+                 
+                                  
+                  <div style={{width: '0.3em', textAlign: 'right',padding: '0.1em'}}>£</div><input                        
+                    required='required'
+                    type='number'
+                    id='cost'
+                    min='0'  
+                    max='20000'
+                    value={cost}
+                    style={{ marginLeft: '2rem' , size: 10}}
+                    onChange={(event) => setCost(event.target.value)}>
+                 </input>         
+ 
+                
                     <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
                         Save
                     </button>
+                    <div style={{ width: '0.4rem' }}></div>
+                    {cost<0 && <p >Does not accept negative values</p> } 
                 </div>
                 </div>
 
