@@ -58,9 +58,34 @@ export const AppReducer = (state, action) => {
                 budget
             };
         case 'SET_BUDGET':
+           /* action.type = "DONE";*/
+            state.budget = action.payload.budget;
+            
+           /* budget = state.expenses.reduce(
+                (previousExp, currentExp) => {
+                    return previousExp + currentExp.cost
+                },0
+            );
+            ///////
+            budget = budget + action.payload.cost;
             action.type = "DONE";
-            state.budget = action.payload;
+            if(budget <= state.budget) {
 
+                budget = 
+             
+   
+                    return currentExp
+                }
+                return {
+                    ...state,
+                };
+            } else {
+                alert("Cannot increase the allocation! Out of funds");
+                return {
+                    ...state
+                }
+            }
+            /////*/
             return {
                 ...state,
             };
@@ -78,13 +103,13 @@ export const AppReducer = (state, action) => {
 
 // 1. Sets the initial state when the app loads
 const initialState = {
-    budget: 2000,
+    budget: 20000,
     expenses: [
-        { id: "Marketing", name: 'Marketing', cost: 50 },
-        { id: "Finance", name: 'Finance', cost: 300 },
-        { id: "Sales", name: 'Sales', cost: 70 },
-        { id: "Human Resource", name: 'Human Resource', cost: 40 },
-        { id: "IT", name: 'IT', cost: 500 },
+        { id: "Marketing", name: 'Marketing', cost: 0 },
+        { id: "Finance", name: 'Finance', cost: 0 },
+        { id: "Sales", name: 'Sales', cost: 0 },
+        { id: "Human Resource", name: 'Human Resource', cost: 0 },
+        { id: "IT", name: 'IT', cost: 0},
     ],
     currency: '£'
 };
@@ -97,14 +122,16 @@ export const AppContext = createContext();
 export const AppProvider = (props) => {
     // 4. Sets up the app state. takes a reducer, and an initial state
     const [state, dispatch] = useReducer(AppReducer, initialState);
-    let remaining = 0;
+   let remaining = 0;
 
     if (state.expenses) {
-            const totalExpenses = state.expenses.reduce((total, item) => {
+        const totalExpenses = state.expenses.reduce((total, item) => {
             return (total = total + item.cost);
         }, 0);
+
         remaining = state.budget - totalExpenses;
     }
+
 
     return (
         <AppContext.Provider
