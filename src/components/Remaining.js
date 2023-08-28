@@ -1,15 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext'; 
 const Remaining = () => {
-    const { expenses, budget } = useContext(AppContext);
+    const { expenses, budget, currency, remaining} = useContext(AppContext);
+    const [error, setError] = useState("");
+
     const totalExpenses = expenses.reduce((total, item) => {
         return (total = total + item.cost);
     }, 0);
-    const alertType = totalExpenses > budget ? 'alert-danger' : 'alert-success';
+
+    if(totalExpenses>remaining){
+        
+        setError("Spent so far cannot exceed the budget: "+remaining)
+
+    }
+    
+    const alertType =  totalExpenses>budget ? 'alert-danger' : 'alert-success';
+
+    
     return (
+        <div>
         <div className={`alert ${alertType}`}>
-            <span>Remaining: £{budget - totalExpenses}</span>
+            <span>Remaining: {currency}{budget - totalExpenses}</span>
         </div>
+        <div>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        </div>
+        </div>
+        
     );
 };
 export default Remaining;

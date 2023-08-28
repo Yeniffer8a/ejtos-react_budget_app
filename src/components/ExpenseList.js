@@ -5,6 +5,7 @@ import { AppContext } from '../context/AppContext';
 const ExpenseList = () => {
     const { expenses } = useContext(AppContext);
     
+    
     return (
         <table className='table'>
               <thead className="thead-light">
@@ -20,6 +21,7 @@ const ExpenseList = () => {
             {expenses.map((expense) => (
                 <ExpenseItem id={expense.id} key={expense.id} name={expense.name} cost={expense.cost} />
             ))}
+            
             </tbody>
         </table>
     );
